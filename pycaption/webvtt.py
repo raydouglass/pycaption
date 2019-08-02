@@ -94,11 +94,15 @@ class WebVTTReader(BaseReader):
             elif '' == line:
                 if found_timing:
                     found_timing = False
-                    caption = Caption(
-                        start, end, nodes, layout_info=layout_info)
-                    nodes = []
-                    if not caption.is_empty():
-                        captions.append(caption)
+                    if not nodes:
+                        caption = None
+                        nodes = []
+                    else:
+                        caption = Caption(
+                            start, end, nodes, layout_info=layout_info)
+                        nodes = []
+                        if not caption.is_empty():
+                            captions.append(caption)
             else:
                 if found_timing:
                     if nodes:
